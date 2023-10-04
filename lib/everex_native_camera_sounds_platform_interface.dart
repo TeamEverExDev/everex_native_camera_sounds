@@ -23,7 +23,15 @@ abstract class EverexNativeCameraSoundsPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+  Future<void> play() {
+    throw UnimplementedError('play() has not been implemented.');
+  }
+
+  Future<void> startRecord() {
+    throw UnimplementedError('startRecord() has not been implemented.');
+  }
+
+  Future<void> endRecord() {
+    throw UnimplementedError('endRecord() has not been implemented.');
   }
 }

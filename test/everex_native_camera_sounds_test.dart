@@ -10,6 +10,24 @@ class MockEverexNativeCameraSoundsPlatform
 
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
+
+  @override
+  Future<void> endRecord() {
+    // TODO: implement endRecord
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> play() {
+    // TODO: implement play
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> startRecord() {
+    // TODO: implement startRecord
+    throw UnimplementedError();
+  }
 }
 
 void main() {
@@ -23,7 +41,5 @@ void main() {
     EverexNativeCameraSounds everexNativeCameraSoundsPlugin = EverexNativeCameraSounds();
     MockEverexNativeCameraSoundsPlatform fakePlatform = MockEverexNativeCameraSoundsPlatform();
     EverexNativeCameraSoundsPlatform.instance = fakePlatform;
-
-    expect(await everexNativeCameraSoundsPlugin.getPlatformVersion(), '42');
   });
 }
