@@ -23,6 +23,7 @@ class EverexNativeCameraSoundsPlugin: FlutterPlugin, MethodCallHandler {
     channel.setMethodCallHandler(this)
   }
 
+  /*https://developer.android.com/reference/android/media/MediaActionSound*/
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     if (call.method == "play") {
       val sound = MediaActionSound()

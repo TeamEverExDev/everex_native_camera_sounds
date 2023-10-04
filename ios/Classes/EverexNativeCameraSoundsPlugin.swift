@@ -9,6 +9,7 @@ public class EverexNativeCameraSoundsPlugin: NSObject, FlutterPlugin {
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
+  // https://iphonedev.wiki/AudioServices
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     if #available(iOS 11.0, *) {
         if (call.method == "play") {
