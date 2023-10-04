@@ -11,7 +11,13 @@ public class EverexNativeCameraSoundsPlugin: NSObject, FlutterPlugin {
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     if #available(iOS 11.0, *) {
-        AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1108), nil)
+        if (call.method == "play") {
+            AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1108), nil)
+        } else if (call.method == "start_record") {
+            AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1117), nil)
+        } else if (call.method == "end_record") {
+            AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1118), nil)
+        }
     } else {
         AudioServicesPlaySystemSound(1108)
     }
