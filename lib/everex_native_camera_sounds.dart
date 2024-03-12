@@ -1,4 +1,3 @@
-
 import 'everex_native_camera_sounds_platform_interface.dart';
 
 class EverexNativeCameraSounds {
@@ -6,11 +5,11 @@ class EverexNativeCameraSounds {
     return EverexNativeCameraSoundsPlatform.instance.play();
   }
 
-  static Future<void> startRecord() {
-    return EverexNativeCameraSoundsPlatform.instance.startRecord();
+  static Future<void> startRecord() async {
+    await EverexNativeCameraSoundsPlatform.instance.startRecord();
   }
 
-  static Future<void> endRecord() {
-    return EverexNativeCameraSoundsPlatform.instance.endRecord();
+  static Future<void> endRecord() async {
+    await EverexNativeCameraSoundsPlatform.instance.endRecord();
   }
 }
