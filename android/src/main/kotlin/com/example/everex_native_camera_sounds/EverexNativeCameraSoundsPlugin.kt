@@ -1,74 +1,57 @@
+import androidx.annotation.NonNull
+
 import android.os.AsyncTask
 import android.media.MediaActionSound
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
-/** EverexNativeCameraSoundsPlugin  */
+/** EverexNativeCameraSoundsPlugin */
 class EverexNativeCameraSoundsPlugin : FlutterPlugin, MethodCallHandler {
-  private var channel: MethodChannel? = null
-  @Override
-  fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.getBinaryMessenger(), "everex_native_camera_sounds")
+  private lateinit var channel: MethodChannel
+
+  override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "everex_native_camera_sounds")
     channel.setMethodCallHandler(this)
   }
 
-  @Override
-  fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method.equals("play")) {
-      playShutterSound(result)
-    } else if (call.method.equals("start_record")) {
-      startRecordingSound(result)
-    } else if (call.method.equals("end_record")) {
-      stopRecordingSound(result)
-    } else {
-      result.notImplemented()
+  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+    when (call.method) {
+      "play" -> playShutterSound(result)
+      "start_record" -> startRecordingSound(result)
+      "end_record" -> stopRecordingSound(result)
+      else -> result.notImplemented()
     }
   }
 
   private fun playShutterSound(@NonNull result: Result) {
-    // 현재 스레드가 메인 스레드이므로 백그라운드 스레드로 작업을 전달
-    object : AsyncTask<Void?, Void?, Void?>() {
-      @Override
-      protected fun doInBackground(vararg voids: Void?): Void? {
-        val sound = MediaActionSound()
-        sound.play(MediaActionSound.SHUTTER_CLICK)
-        return null
-      }
-    }.execute()
-    result.success(null)
+    AsyncTask.execute {
+      val sound = MediaActionSound()
+      sound.play(MediaActionSound.SHUTTER_CLICK)
+      result.success(null)
+    }
   }
 
   private fun startRecordingSound(@NonNull result: Result) {
-    // 현재 스레드가 메인 스레드이므로 백그라운드 스레드로 작업을 전달
-    object : AsyncTask<Void?, Void?, Void?>() {
-      @Override
-      protected fun doInBackground(vararg voids: Void?): Void? {
-        val sound = MediaActionSound()
-        sound.play(MediaActionSound.START_VIDEO_RECORDING)
-        return null
-      }
-    }.execute()
-    result.success(null)
+    AsyncTask.execute {
+      val sound = MediaActionSound()
+      sound.play(MediaActionSound.START_VIDEO_RECORDING)
+      result.success(null)
+    }
   }
 
   private fun stopRecordingSound(@NonNull result: Result) {
-    // 현재 스레드가 메인 스레드이므로 백그라운드 스레드로 작업을 전달
-    object : AsyncTask<Void?, Void?, Void?>() {
-      @Override
-      protected fun doInBackground(vararg voids: Void?): Void? {
-        val sound = MediaActionSound()
-        sound.play(MediaActionSound.STOP_VIDEO_RECORDING)
-        return null
-      }
-    }.execute()
-    result.success(null)
+    AsyncTask.execute {
+      val sound = MediaActionSound()
+      sound.play(MediaActionSound.STOP_VIDEO_RECORDING)
+      result.success(null)
+    }
   }
 
-  @Override
-  fun onDetachedFromEngine(@NonNull binding: FlutterPluginBinding?) {
+  override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
   }
 }
