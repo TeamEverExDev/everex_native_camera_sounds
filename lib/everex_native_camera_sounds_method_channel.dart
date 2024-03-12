@@ -15,12 +15,12 @@ class MethodChannelEverexNativeCameraSounds extends EverexNativeCameraSoundsPlat
   }
 
   @override
-  Future<void> startRecord() {
-    return methodChannel.invokeMethod<void>('start_record');
+  Future<void> startRecord() async {
+    await methodChannel.invokeMethod<void>('start_record');
   }
 
   @override
-  Future<void> endRecord() {
-    return methodChannel.invokeMethod<void>('end_record');
+  Future<void> endRecord() async {
+    await methodChannel.invokeMethod<void>('end_record');
   }
 }
