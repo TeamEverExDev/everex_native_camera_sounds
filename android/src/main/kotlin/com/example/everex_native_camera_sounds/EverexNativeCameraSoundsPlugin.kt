@@ -25,17 +25,31 @@ class EverexNativeCameraSoundsPlugin: FlutterPlugin, MethodCallHandler {
 
   /*https://developer.android.com/reference/android/media/MediaActionSound*/
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method == "play") {
-      val sound = MediaActionSound()
-      sound.play(MediaActionSound.SHUTTER_CLICK)
-    } else if (call.method == "start_record") {
-      val sound = MediaActionSound()
-      sound.play(MediaActionSound.START_VIDEO_RECORDING)
-    } else if (call.method == "end_record") {
-      val sound = MediaActionSound()
-      sound.play(MediaActionSound.STOP_VIDEO_RECORDING)
-    } else {
-      result.notImplemented()
+//    if (call.method == "play") {
+//      val sound = MediaActionSound()
+//      sound.play(MediaActionSound.SHUTTER_CLICK)
+//    } else if (call.method == "start_record") {
+//      val sound = MediaActionSound()
+//      sound.play(MediaActionSound.START_VIDEO_RECORDING)
+//    } else if (call.method == "end_record") {
+//      val sound = MediaActionSound()
+//      sound.play(MediaActionSound.STOP_VIDEO_RECORDING)
+//    } else {
+//      result.notImplemented()
+//    }
+    GlobalScope.launch(Dispatchers.Default) {
+      if (call.method == "play") {
+        val sound = MediaActionSound()
+        sound.play(MediaActionSound.SHUTTER_CLICK)
+      } else if (call.method == "start_record") {
+        val sound = MediaActionSound()
+        sound.play(MediaActionSound.START_VIDEO_RECORDING)
+      } else if (call.method == "end_record") {
+        val sound = MediaActionSound()
+        sound.play(MediaActionSound.STOP_VIDEO_RECORDING)
+      } else {
+        result.notImplemented()
+      }
     }
   }
 
